@@ -1,0 +1,130 @@
+#HTML
+
+<input type="email" id="email" placeholder="Email Address">
+    <input type="text" id="phoneNumber" placeholder="Phone Number">
+    <input type="password" id="password" placeholder="Password">
+    <button onclick="verifyCredentials()">Submit</button>
+</div>
+
+<div id="welcomePage" class="full-page hidden">
+    <h1 id="welcomeMessage">Welcome To Helprouter</h1>
+</div>
+
+<div id="mainContent" class="full-page hidden">
+    <div class="navbar">
+        <button onclick="navigateTo('requestHelpPage')">Request Help</button>
+        <button onclick="navigateTo('notificationsPage')">Notifications</button>
+        <button onclick="navigateTo('profilePage')">My Profile</button>
+    </div>
+</div>
+
+<div id="requestHelpPage" class="full-page hidden">
+    <h2>Request Help</h2>
+    <input type="text" id="requestName" placeholder="Name">
+    <textarea id="helperMessage" placeholder="Message for Helpers"></textarea>
+    <input type="text" id="requestLocation" placeholder="Location">
+    <label><input type="checkbox" id="isEmergency"> Is It Emergency?</label>
+    <label><input type="checkbox" id="shareMobileNumber"> Share Mobile Number?</label>
+    <button onclick="sendHelpRequest()">Send Request</button>
+    <button class="back-button" onclick="navigateTo('mainContent')">Back</button>
+</div>
+
+<div id="notificationsPage" class="full-page hidden">
+    <h2>Notifications</h2>
+    <div id="notificationsContent"></div>
+    <button class="back-button" onclick="navigateTo('mainContent')">Back</button>
+</div>
+
+<div id="profilePage" class="full-page hidden">
+    <h2>My Profile</h2>
+    <div id="profileContent"></div>
+    <button class="back-button" onclick="navigateTo('mainContent')">Back</button>
+</div>
+
+<div id="successPopup" class="popup hidden">
+    <p>You have successfully signed in!</p>
+</div>
+
+<script src="scripts.js"></script>
+</body>
+</html>
+
+
+
+
+
+#CSS
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(45deg, #000000, #FFA500, #FFFF00);
+    color: white;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.full-page {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+}
+
+.hidden {
+    display: none;
+}
+
+.auth-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.auth-buttons button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    cursor: pointer;
+}
+
+
+#JAVASCRIPT
+
+let userProfile = {
+    username: '',
+    email: '',
+    phoneNumber: '',
+    helpsCompleted: 0,
+    badges: 0
+};
+
+function navigateTo(pageId) {
+    let pages = document.querySelectorAll('.full-page');
+    pages.forEach(page => {
+        if (page.id === pageId) {
+            page.classList.remove('hidden');
+        } else {
+            page.classList.add('hidden');
+        }
+    });
+}
+
+function verifyCredentials() {
+    let username = document.getElementById('username').value;
+    let email = document.getElementById('email').value;
+    let phoneNumber = document.getElementById('phoneNumber').value;
+    let password = document.getElementById('password').value;
+
+    if (username && email && phoneNumber && password) {
+        userProfile.username = username;
+        userProfile.email = email;
+        userProfile.phoneNumber = phoneNumber;
